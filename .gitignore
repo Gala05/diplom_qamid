@@ -32,6 +32,9 @@ out/
 *.zip
 *.tar.gz
 *.rar
+*.json
+
+
 
 ### Stuff ###
 .allure/
@@ -39,10 +42,14 @@ node_modules/
 
 ### Exclusions ###
 HELP.md
+lint.xml
+proguard-rules.pro
 .gradle
 build/
 !gradle/wrapper/gradle-wrapper.jar
 fmh_android_15_03_24/
 vrem/
+gradle/
+sampledata/
 
 
