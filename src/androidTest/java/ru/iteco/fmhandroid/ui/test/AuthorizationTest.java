@@ -6,13 +6,18 @@ import static androidx.test.espresso.matcher.RootMatchers.withDecorView;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
-import static ru.iteco.fmhandroid.ui.data.Data.*;
+import static ru.iteco.fmhandroid.ui.data.Data.authorizationEmptyFieldsMessage;
+import static ru.iteco.fmhandroid.ui.data.Data.emptyField;
+import static ru.iteco.fmhandroid.ui.data.Data.invalidLogin;
+import static ru.iteco.fmhandroid.ui.data.Data.invalidPassword;
+import static ru.iteco.fmhandroid.ui.data.Data.regSQLInjection;
+import static ru.iteco.fmhandroid.ui.data.Data.toastMessageUnregisteredUser;
+import static ru.iteco.fmhandroid.ui.data.Data.validLogin;
+import static ru.iteco.fmhandroid.ui.data.Data.validPassword;
 
 import android.view.View;
 
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
-import androidx.test.ext.junit.runners.AndroidJUnit4;
-import androidx.test.filters.LargeTest;
 
 import org.hamcrest.Matchers;
 
@@ -21,12 +26,13 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import io.qameta.allure.android.runners.AllureAndroidJUnit4;
 import ru.iteco.fmhandroid.ui.AppActivity;
 import ru.iteco.fmhandroid.ui.pageObject.LoginPage;
 import ru.iteco.fmhandroid.ui.pageObject.MainPage;
 
-@LargeTest
-@RunWith(AndroidJUnit4.class)
+
+@RunWith(AllureAndroidJUnit4.class)
 public class AuthorizationTest {
     LoginPage loginPage = new LoginPage();
     MainPage mainPage = new MainPage();
@@ -42,6 +48,15 @@ public class AuthorizationTest {
         mActivityScenarioRule.getScenario().onActivity(activity -> decorView = activity.getWindow().getDecorView());
     }
 
+    @Before
+    public void authorisationInApp() {
+        try {
+            loginPage.appDownload();
+        } catch (Exception e) {
+            loginPage.exitFromApp();
+        }
+        //loginPage.authorisationInApp()
+    }
     @Test
     public void authorizationRegisteredUserTest() {
         loginPage.authorisationInApp();
