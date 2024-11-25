@@ -12,6 +12,7 @@ import static ru.iteco.fmhandroid.ui.pageObject.LoginPage.*;
 
 import androidx.test.espresso.ViewInteraction;
 
+import io.qameta.allure.kotlin.Allure;
 import ru.iteco.fmhandroid.R;
 
 public class MainPage {
@@ -22,10 +23,12 @@ public class MainPage {
     public static ViewInteraction newsDropdownButton = onView(withId(R.id.expand_material_button));
 
     public void checkingElemInMainPage(){
+        Allure.step("Проверка наличия элементов главной страницы");
         allNews.check(matches(isDisplayed()));
     }
 
     public void newsDropdownButtonInMain(){
+        Allure.step("Проверка работы выпадающего списка новостей на главной странице");
         newsDropdownButton.check(matches(isDisplayed()));
         newsDropdownButton.perform(click());
         allNews.check(matches(not(isDisplayed())));
@@ -34,6 +37,7 @@ public class MainPage {
     }
 
     public void toMainFromNavButton(){
+        Allure.step("Переход на главную страницу через кнопку навигации");
         navigationButton.perform(click());
         mainButton.perform(click());
         checkingElemInMainPage();

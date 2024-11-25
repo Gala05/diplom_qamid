@@ -16,6 +16,7 @@ import android.content.Intent;
 
 import androidx.test.espresso.ViewInteraction;
 
+import io.qameta.allure.kotlin.Allure;
 import ru.iteco.fmhandroid.R;
 import ru.iteco.fmhandroid.ui.data.Data;
 
@@ -31,6 +32,7 @@ public class AboutPage {
     public static ViewInteraction aboutCompanyText = onView(withId(R.id.about_company_info_label_text_view));
 
     public void checkingElemInAboutPage(){
+        Allure.step("Проверка наличия элементов страницы О нас");
         trademarkImage.check(matches(isDisplayed()));
         versionText.check(matches(isDisplayed()));
         versionValueText.check(matches(isDisplayed()));
@@ -42,22 +44,26 @@ public class AboutPage {
     }
 
     public void toAboutFromNavButton(){
+        Allure.step("Переход на страницу О нас через кнопку навигации");
         navigationButton.perform(click());
         aboutButton.perform(click());
         checkingElemInAboutPage();
     }
 
     public void backButtonInAbout(){
+        Allure.step("Нажатие кнопки Назад на странице О наса");
         backFromAboutButton.check(matches(isDisplayed()));
         backFromAboutButton.perform(click());
     }
     public void goToTheLinkPrivacyPolicy() {
+        Allure.step("Переход по ссылке Политика конфиденциальности на странице О нас");
         privacyPolicyLink.perform(click());
         intended(hasAction(Intent.ACTION_VIEW));
         intended(hasData(Data.linkOfPrivacyPolicy));
     }
 
     public void goToLinkTermsOfUse(){
+        Allure.step("Переход по ссылке Пользовательское соглашение на странице О нас");
         termsOfUseLink.perform(click());
         intended(hasAction(Intent.ACTION_VIEW));
         intended(hasData(Data.linkOfTermsOfUse));

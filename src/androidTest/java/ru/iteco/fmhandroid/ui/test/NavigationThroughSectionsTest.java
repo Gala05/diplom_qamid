@@ -12,6 +12,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import io.qameta.allure.android.runners.AllureAndroidJUnit4;
+import io.qameta.allure.kotlin.Epic;
+import io.qameta.allure.kotlin.junit4.DisplayName;
 import ru.iteco.fmhandroid.ui.AppActivity;
 import ru.iteco.fmhandroid.ui.pageObject.AboutPage;
 import ru.iteco.fmhandroid.ui.pageObject.LoginPage;
@@ -42,25 +44,33 @@ public class NavigationThroughSectionsTest {
         loginpage.authorisationInApp();
     }
 
+    @Epic(value = "Тестирование навигации")
     @Test
+    @DisplayName("Проверка перехода с главной страницы на страницу новостей")
     public void fromMainToNewsTest(){
         newsPage.goToNewsPageFromNavButton();
     }
 
+    @Epic(value = "Тестирование навигации")
     @Test
+    @DisplayName("Проверка перехода с главной страницы на страницу О нас")
     public void fromMainToAbout(){
         aboutPage.toAboutFromNavButton();
         aboutPage.backButtonInAbout();
         mainPage.checkingElemInMainPage();
     }
 
+    @Epic(value = "Тестирование навигации")
     @Test
+    @DisplayName("Проверка перехода с виджета новостей на главной странице на страницу новостей и обратно")
     public void fromAllNewsInMainToNewsAndToMainTest(){
         allNews.perform(click());
         mainPage.toMainFromNavButton();
     }
 
+    @Epic(value = "Тестирование навигации")
     @Test
+    @DisplayName("Проверка перехода с главной страницы на страницу новостей, страницу О нас и обратно")
     public void fromMainToNewsToAboutTestTest() {
         newsPage.goToNewsPageFromNavButton();
         aboutPage.toAboutFromNavButton();
@@ -68,24 +78,32 @@ public class NavigationThroughSectionsTest {
         mainPage.checkingElemInMainPage();
     }
 
+    @Epic(value = "Тестирование навигации")
     @Test
+    @DisplayName("Проверка перехода с главной страницы на страницу Главное - жить любя")
     public void fromMainToLove(){
         loveIsAllPage.goToLoveIsAllPage();
     }
 
+    @Epic(value = "Тестирование навигации")
     @Test
+    @DisplayName("Проверка перехода со страницы Главное - жить любя на главную страницу")
     public void fromLoveToMain(){
         loveIsAllPage.goToLoveIsAllPage();
         mainPage.toMainFromNavButton();
     }
 
+    @Epic(value = "Тестирование навигации")
     @Test
+    @DisplayName("Проверка перехода со страницы Главное - жить любя на страницу новостей")
     public void fromLoveToNews(){
         loveIsAllPage.goToLoveIsAllPage();
         newsPage.goToNewsPageFromNavButton();
     }
 
+    @Epic(value = "Тестирование навигации")
     @Test
+    @DisplayName("Проверка перехода со страницы Главное - жить любя на страницу О нас")
     public void fromLoveToAbout(){
         loveIsAllPage.goToLoveIsAllPage();
         aboutPage.toAboutFromNavButton();

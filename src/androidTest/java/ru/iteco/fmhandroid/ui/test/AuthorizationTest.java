@@ -17,6 +17,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import io.qameta.allure.android.runners.AllureAndroidJUnit4;
+import io.qameta.allure.kotlin.Epic;
+import io.qameta.allure.kotlin.junit4.DisplayName;
 import ru.iteco.fmhandroid.ui.AppActivity;
 import ru.iteco.fmhandroid.ui.pageObject.LoginPage;
 import ru.iteco.fmhandroid.ui.pageObject.MainPage;
@@ -42,46 +44,60 @@ public class AuthorizationTest {
         }
     }
 
+    @Epic(value = "Тестирование страницы авторизации в приложении")
     @Test
+    @DisplayName("Авторизация в приложении")
     public void authorizationRegisteredUserTest() {
         loginPage.authorisationInApp();
         mainPage.checkingElemInMainPage();
         loginPage.exitFromApp();
     }
 
+    @Epic(value = "Тестирование страницы авторизации в приложении")
     @Test
+    @DisplayName("Авторизация пользователя с неверными логином и паролем")
     public void authorizationUnregisteredUserTest() {
-        loginPage.authorisationMistakeInApp(invalidLogin, invalidPassword);
+        loginPage.authorisationFailedInApp(invalidLogin, invalidPassword);
         loginPage.checkToastMessageUnregisteredUser();
     }
 
+    @Epic(value = "Тестирование страницы авторизации в приложении")
     @Test
+    @DisplayName("Авторизация пользователя с неверным логином и верным паролем")
     public void authorizationInvalidLoginValidPasswordTest() {
-        loginPage.authorisationMistakeInApp(invalidLogin, validPassword);
+        loginPage.authorisationFailedInApp(invalidLogin, validPassword);
         loginPage.checkToastMessageUnregisteredUser();
     }
 
+    @Epic(value = "Тестирование страницы авторизации в приложении")
     @Test
+    @DisplayName("Авторизация пользователя с верным логином и неверным паролем")
     public void authorizationValidLoginInvalidPasswordTest() {
-        loginPage.authorisationMistakeInApp(validLogin, invalidPassword);
+        loginPage.authorisationFailedInApp(validLogin, invalidPassword);
         loginPage.checkToastMessageUnregisteredUser();
     }
 
+    @Epic(value = "Тестирование страницы авторизации в приложении")
     @Test
+    @DisplayName("Авторизация пользователя с пустыми полями")
     public void authorizationEmptyFieldsTest() {
-        loginPage.authorisationMistakeInApp(emptyField, emptyField);
+        loginPage.authorisationFailedInApp(emptyField, emptyField);
         loginPage.checkToastMessageEmptyFields();
     }
 
+    @Epic(value = "Тестирование страницы авторизации в приложении")
     @Test
+    @DisplayName("Авторизация пользователя с SQL инъекцией в логине и верным паролем")
     public void authorizationWithSQLInjectionInLoginTest() {
-        loginPage.authorisationMistakeInApp(regSQLInjection, validPassword);
+        loginPage.authorisationFailedInApp(regSQLInjection, validPassword);
         loginPage.checkToastMessageUnregisteredUser();
     }
 
+    @Epic(value = "Тестирование страницы авторизации в приложении")
     @Test
+    @DisplayName("Авторизация пользователя с верным паролем и SQL инъекцией в пароли")
     public void authorizationWithSQLInjectionInPasswordTest() {
-        loginPage.authorisationMistakeInApp(validLogin, regSQLInjection);
+        loginPage.authorisationFailedInApp(validLogin, regSQLInjection);
         loginPage.checkToastMessageUnregisteredUser();
     }
 }

@@ -1,25 +1,18 @@
 package ru.iteco.fmhandroid.ui.test;
 
-import static androidx.test.espresso.Espresso.onView;
-import static androidx.test.espresso.assertion.ViewAssertions.matches;
-import static androidx.test.espresso.matcher.RootMatchers.withDecorView;
-import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
-import static androidx.test.espresso.matcher.ViewMatchers.withText;
-
-import static ru.iteco.fmhandroid.ui.data.Data.addNewsEmptyFieldsMessage;
-
 import android.view.View;
 
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 
-import org.hamcrest.Matchers;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import io.qameta.allure.android.runners.AllureAndroidJUnit4;
-import ru.iteco.fmhandroid.R;
+import io.qameta.allure.kotlin.Epic;
+import io.qameta.allure.kotlin.junit4.DisplayName;
+
 import ru.iteco.fmhandroid.ui.AppActivity;
 import ru.iteco.fmhandroid.ui.pageObject.AboutPage;
 import ru.iteco.fmhandroid.ui.pageObject.LoginPage;
@@ -58,7 +51,9 @@ public class NewsTest {
 //        newsPage.clickOnNews(0);
 //    }
 
+    @Epic(value = "Тестирование страницы новостей")
     @Test
+    @DisplayName("Проверка добавления новости")
     public void addNews(){
         newsPage.addNews();
         newsPage.checkEditNews();
@@ -66,13 +61,17 @@ public class NewsTest {
         newsPage.checkAddedNewsInControlPanel();
     }
 
+    @Epic(value = "Тестирование страницы новостей")
     @Test
+    @DisplayName("Проверка добавления новости с пустыми полями")
     public void addNewsWithEmptyFields(){
         newsPage.addNewsWithEmptyFields();
         newsPage.checkEmptyFieldsMessage();
     }
 
+    @Epic(value = "Тестирование страницы новостей")
     @Test
+    @DisplayName("Проверка удаления новости")
     public void deleteNewsWithTodayPublicationDate(){
         newsPage.addNewsWithTodayPublicationDateAndSort();
         newsPage.filterTodayNews();
@@ -82,7 +81,9 @@ public class NewsTest {
 
     }
 
+    @Epic(value = "Тестирование страницы новостей")
     @Test
+    @DisplayName("Проверка редактирования новости")
     public void changeNews(){
         newsPage.addNewsWithTodayPublicationDateAndSort();
         newsPage.filterTodayNews();

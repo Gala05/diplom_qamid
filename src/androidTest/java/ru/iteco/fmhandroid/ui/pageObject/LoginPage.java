@@ -1,4 +1,5 @@
 package ru.iteco.fmhandroid.ui.pageObject;
+import io.qameta.allure.kotlin.Allure;
 import ru.iteco.fmhandroid.R;
 
 import static androidx.test.espresso.Espresso.onView;
@@ -48,9 +49,11 @@ public class LoginPage {
     public static int enterButton = R.id.enter_button;
     private View decorView;
     public void appDownload(){
+        Allure.step("Ожидание загрузки приложения");
         onView(isRoot()).perform(waitId((enterButton), 10000));
     }
     public void authorisationInApp(){
+        Allure.step("Авторизация в приложении");
         login_attr.check(matches(isDisplayed()));
         login_attr.perform(replaceText(validLogin), closeSoftKeyboard());
         password_attr.perform(replaceText(validPassword), closeSoftKeyboard());
@@ -60,6 +63,7 @@ public class LoginPage {
     }
 
     public void exitFromApp(){
+        Allure.step("Выход из приложения");
         logoutImage.check(matches(isDisplayed()));
         logoutImage.perform(click());
         onView(isRoot()).perform(waitMatcher((withText("Log out")), 10000));
@@ -68,7 +72,8 @@ public class LoginPage {
         login_attr.check(matches(isDisplayed()));
     }
 
-    public void authorisationMistakeInApp(String login, String password){
+    public void authorisationFailedInApp(String login, String password){
+        Allure.step("Ошибка авторизации в приложении");
         onView(isRoot()).perform(waitMatcher((withId(R.id.enter_button)), 10000));
         login_attr.check(matches(isDisplayed()));
         login_attr.perform(replaceText(login), closeSoftKeyboard());
@@ -78,12 +83,14 @@ public class LoginPage {
     }
 
     public void checkToastMessageUnregisteredUser(){
+        Allure.step("Всплывающее сообщение об ошибке на экране");
         onView(withText(toastMessageUnregisteredUser))
                 .inRoot(withDecorView(Matchers.not(decorView)))
                 .check(matches(isDisplayed()));
     }
 
     public void checkToastMessageEmptyFields(){
+        Allure.step("Всплывающее сообщение о пустом поле на экране");
         onView(withText(authorizationEmptyFieldsMessage))
                 .inRoot(withDecorView(Matchers.not(decorView)))
                 .check(matches(isDisplayed()));

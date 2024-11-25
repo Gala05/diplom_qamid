@@ -9,6 +9,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import io.qameta.allure.android.runners.AllureAndroidJUnit4;
+import io.qameta.allure.kotlin.Epic;
+import io.qameta.allure.kotlin.junit4.DisplayName;
 import ru.iteco.fmhandroid.ui.AppActivity;
 import ru.iteco.fmhandroid.ui.pageObject.AboutPage;
 import ru.iteco.fmhandroid.ui.pageObject.LoginPage;
@@ -34,14 +36,18 @@ public class AboutTest {
         loginpage.authorisationInApp();
     }
 
+    @Epic(value = "Тестирование страницы О нас")
     @Test
+    @DisplayName("Проверка наличия элементов страницы О нас")
     public void checkingAllElemInAbout(){
         aboutPage.toAboutFromNavButton();
         aboutPage.backButtonInAbout();
         mainPage.checkingElemInMainPage();
     }
 
+    @Epic(value = "Тестирование страницы О нас")
     @Test
+    @DisplayName("Переход по ссылке Политика конфиденциальности на странице О нас")
     public void goToLinkPrivacyPolicy(){
         Intents.init();
         aboutPage.toAboutFromNavButton();
@@ -49,7 +55,9 @@ public class AboutTest {
         Intents.release();
     }
 
+    @Epic(value = "Тестирование страницы О нас")
     @Test
+    @DisplayName("Переход по ссылке Пользовательское соглашение на странице О нас")
     public void goToLinkTermsOfUse(){
         Intents.init();
         aboutPage.toAboutFromNavButton();

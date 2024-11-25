@@ -8,6 +8,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import io.qameta.allure.android.runners.AllureAndroidJUnit4;
+import io.qameta.allure.kotlin.Epic;
+import io.qameta.allure.kotlin.junit4.DisplayName;
 import ru.iteco.fmhandroid.ui.AppActivity;
 import ru.iteco.fmhandroid.ui.pageObject.LoginPage;
 import ru.iteco.fmhandroid.ui.pageObject.MainPage;
@@ -30,7 +32,9 @@ public class MainTest {
         }
         loginpage.authorisationInApp();
     }
+    @Epic(value = "Тестирование главной страницы")
     @Test
+    @DisplayName("Проверка работы выпадающего списка новостей на главной странице")
     public void newsDropdownInMain(){
         mainPage.newsDropdownButtonInMain();
     }
