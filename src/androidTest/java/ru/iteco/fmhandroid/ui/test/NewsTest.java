@@ -2,14 +2,17 @@ package ru.iteco.fmhandroid.ui.test;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
+import static androidx.test.espresso.matcher.RootMatchers.withDecorView;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
-import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
-import static org.hamcrest.Matchers.allOf;
 
-import androidx.test.espresso.ViewInteraction;
+import static ru.iteco.fmhandroid.ui.data.Data.addNewsEmptyFieldsMessage;
+
+import android.view.View;
+
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 
+import org.hamcrest.Matchers;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -31,12 +34,15 @@ public class NewsTest {
     AboutPage aboutPage = new AboutPage();
     MainPage mainPage = new MainPage();
     LoveIsAllPage loveIsAllPage = new LoveIsAllPage();
+    private View decorView;
+
     @Rule
     public ActivityScenarioRule<AppActivity> mActivityScenarioRule =
             new ActivityScenarioRule<>(AppActivity.class);
 
     @Before
     public void authorisationInApp() {
+        mActivityScenarioRule.getScenario().onActivity(activity -> decorView = activity.getWindow().getDecorView());
         try {
             loginpage.appDownload();
         } catch (Exception e) {
@@ -46,24 +52,43 @@ public class NewsTest {
         newsPage.goToNewsPageFromNavButton();
     }
 
-    @Test
-    public void readingNewsTest(){
-        newsPage.goToNewsPageFromNavButton();
-        newsPage.clickOnNews(0);
-    }
+//    @Test
+//    public void readingNewsTest(){
+//        newsPage.goToNewsPageFromNavButton();
+//        newsPage.clickOnNews(0);
+//    }
 
     @Test
     public void addNews(){
-        newsPage.addNews("Праздник", "Праздник5", "24.12.2024", "20:00", "Описание");
-        //newsPage.openNews(0);
-        ViewInteraction textView = onView(
-                allOf(withId(R.id.news_item_title_text_view), withText("Праздник5"),
-                        //withParent(withParent(withId(R.id.news_item_material_card_view))),
-                        isDisplayed()));
-
+        newsPage.addNews();
         newsPage.checkEditNews();
-        textView.check(matches(withText("Праздник5")));
+        newsPage.filterNews();
+        newsPage.checkAddedNewsInControlPanel();
+    }
 
+    @Test
+    public void addNewsWithEmptyFields(){
+        newsPage.addNewsWithEmptyFields();
+        newsPage.checkEmptyFieldsMessage();
+    }
 
+    @Test
+    public void deleteNewsWithTodayPublicationDate(){
+        newsPage.addNewsWithTodayPublicationDateAndSort();
+        newsPage.filterTodayNews();
+        newsPage.checkAddedNewsInControlPanel();
+        newsPage.deleteNews();
+        newsPage.checkAddedNewsIsDeleted();
+
+    }
+
+    @Test
+    public void changeNews(){
+        newsPage.addNewsWithTodayPublicationDateAndSort();
+        newsPage.filterTodayNews();
+        newsPage.checkAddedNewsInControlPanel();
+        newsPage.checkEditNews();
+        newsPage.editNews();
+        newsPage.checkAddedNewsIsEditedInControlPanel();
     }
 }

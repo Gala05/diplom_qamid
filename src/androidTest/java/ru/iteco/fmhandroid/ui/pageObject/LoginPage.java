@@ -7,6 +7,7 @@ import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static androidx.test.espresso.action.ViewActions.replaceText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 
+import static androidx.test.espresso.matcher.RootMatchers.withDecorView;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.isRoot;
 import static androidx.test.espresso.matcher.ViewMatchers.withContentDescription;
@@ -17,6 +18,8 @@ import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
 import static org.hamcrest.Matchers.allOf;
 
+import static ru.iteco.fmhandroid.ui.data.Data.authorizationEmptyFieldsMessage;
+import static ru.iteco.fmhandroid.ui.data.Data.toastMessageUnregisteredUser;
 import static ru.iteco.fmhandroid.ui.data.Data.validLogin;
 import static ru.iteco.fmhandroid.ui.data.Data.validPassword;
 
@@ -31,6 +34,7 @@ import androidx.test.espresso.ViewInteraction;
 import java.util.concurrent.TimeoutException;
 
 import org.hamcrest.Matcher;
+import org.hamcrest.Matchers;
 import org.hamcrest.core.IsInstanceOf;
 
 
@@ -42,6 +46,7 @@ public class LoginPage {
     public static ViewInteraction logoutImage = onView(withId(R.id.authorization_image_button));
     public static ViewInteraction logoutText = onView(withText("Log out"));
     public static int enterButton = R.id.enter_button;
+    private View decorView;
     public void appDownload(){
         onView(isRoot()).perform(waitId((enterButton), 10000));
     }
@@ -70,6 +75,18 @@ public class LoginPage {
         password_attr.perform(replaceText(password), closeSoftKeyboard());
         signInButton_attr.check(matches(isDisplayed()));
         signInButton_attr.perform(click());
+    }
+
+    public void checkToastMessageUnregisteredUser(){
+        onView(withText(toastMessageUnregisteredUser))
+                .inRoot(withDecorView(Matchers.not(decorView)))
+                .check(matches(isDisplayed()));
+    }
+
+    public void checkToastMessageEmptyFields(){
+        onView(withText(authorizationEmptyFieldsMessage))
+                .inRoot(withDecorView(Matchers.not(decorView)))
+                .check(matches(isDisplayed()));
     }
 
     public static ViewAction waitId(final int viewId, final long millis) {
